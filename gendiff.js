@@ -15,12 +15,12 @@ const getdiff = (file1, file2) => {
 	const fileSort1 = _.sortBy(fileArray1, [function(o) { return o[0]}]);
 	const fileSort2 = _.sortBy(fileArray2, [function(o) { return o[0]}]);
 
-	console.log(fileSort1);
-	console.log(fileSort2);
+	//console.log(fileSort1);
+	//console.log(fileSort2);
 	const n = fileSort1.length;
 	const m = fileSort2.length;
 
-	console.log(n);
+	//console.log(n);
 	let i = 0;
 	let j = 0;
 	let f = [];
