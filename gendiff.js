@@ -72,14 +72,12 @@ program
   .option('-V, --version', 'output the version number')
   .option('-f, --format <type> ','output format')
   .arguments('<filepath1> <filepath2>')
-	.action((filepath1, filepath2) => {
-		// const fileNew = path.resolve(process.cwd(), filepath1);
+  .action((filepath1, filepath2) => {
 		console.log(gendiff(filepath1, filepath2));
-});
-program.parse(process.argv);
- 
-program.help()
+	})
+  .parse(process.argv);
 
+//program.parse();
 
 export default gendiff;
 
