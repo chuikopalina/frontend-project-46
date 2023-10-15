@@ -1,8 +1,13 @@
-const { program } = require('commander');
-const path = require('node:path');
-const fs = require('fs');
-const _ = require('lodash');
-const { get } = require('node:https');
+#!/usr/bin/env node
+import {program} from 'commander';
+//const { program } = require('commander');
+//const path = require('node:path');
+//const fs = require('fs');
+//const _ = require('lodash');
+//const { get } = require('node:https');
+import _ from 'lodash';
+import fs from 'fs';
+import path from 'path';
 
 const gendiff = (file1, file2) => {
 	const fileNewObj1 = path.resolve(process.cwd(), file1);
