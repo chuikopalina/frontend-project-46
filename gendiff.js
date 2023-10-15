@@ -76,7 +76,10 @@ program
 		// const fileNew = path.resolve(process.cwd(), filepath1);
 		console.log(gendiff(filepath1, filepath2));
 });
-program.parse();
+program.parse(process.argv);
+ 
+program.help()
+
 
 export default gendiff;
 
