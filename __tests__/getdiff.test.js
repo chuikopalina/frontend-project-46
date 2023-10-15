@@ -1,7 +1,7 @@
 //import { test, expect } from '@jest/globals';
 import gendiff from '../gendiff.js';
-import file1_1 from '../test_file1_1.json';
-import file1_2 from '../test_file1_2.json';
+import file1_1 from '../__fixtures__/test_file1_1.json';
+import file1_2 from '../__fixtures__/test_file1_2.json';
 
 const f1 = file1_1;
 const f2 = file1_2;
