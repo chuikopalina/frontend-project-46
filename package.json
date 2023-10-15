@@ -4,7 +4,7 @@
   "description": "Compares two configuration files and shows a difference.",
   "main": "gendiff.js",
   "scripts": {
-    "test": "jest"
+    "test": "npx -n --experimental-vm-modules jest"
   },
   "simple-git-hooks": {
     "pre-push": "make lint"

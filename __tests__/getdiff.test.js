@@ -1,4 +1,4 @@
-import { test, expect } from '@jest/globals';
+//import { test, expect } from '@jest/globals';
 import getdiff from '../gendiff.js';
 import file1_1 from '../test_file1_1.json';
 import file1_2 from '../test_file1_2.json';
