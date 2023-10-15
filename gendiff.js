@@ -4,7 +4,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const { get } = require('node:https');
 
-const getdiff = (file1, file2) => {
+const gendiff = (file1, file2) => {
 	const fileNewObj1 = path.resolve(process.cwd(), file1);
 	const fileArray1 = Object.entries(JSON.parse(fs.readFileSync(fileNewObj1, "utf-8")));
 
@@ -68,9 +68,11 @@ program
   .arguments('<filepath1> <filepath2>')
 	.action((filepath1, filepath2) => {
 		// const fileNew = path.resolve(process.cwd(), filepath1);
-		console.log(getdiff(filepath1, filepath2));
+		console.log(gendiff(filepath1, filepath2));
 });
 program.parse();
+
+export default gendiff;
 
 	// myObj.sort((a, b) => {
 	// 	if (a[0].toUpperCase() < b[0].toUpperCase()) {
