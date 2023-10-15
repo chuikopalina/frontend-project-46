@@ -10,7 +10,6 @@ const getdiff = (file1, file2) => {
 
 	const fileNewObj2 = path.resolve(process.cwd(), file2);
 	const fileArray2 = Object.entries(JSON.parse(fs.readFileSync(fileNewObj2, "utf-8")));
-	const result = [];
 
 	const fileSort1 = _.sortBy(fileArray1, [function(o) { return o[0]}]);
 	const fileSort2 = _.sortBy(fileArray2, [function(o) { return o[0]}]);
@@ -25,7 +24,7 @@ const getdiff = (file1, file2) => {
 	let j = 0;
 	let f = [];
 
-	while (i < n && j < m) {		
+	while (i < n && j < m) {
 		if (fileSort1[i][0].toUpperCase() < fileSort2[j][0].toUpperCase()) {
 			fileSort1[i][0] = `-${fileSort1[i][0]}`
 			f.push(fileSort1[i]);
@@ -56,10 +55,10 @@ const getdiff = (file1, file2) => {
 		f.push(fileSort1[a]);
 	}
 	//const s = Object.fromEntries(fileSort1);
-	console.log(f);
+	//console.log(f);
 
 
-	return ([fileNewObj1, fileNewObj2]);
+	return (f.join());
 }
 
 program
