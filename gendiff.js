@@ -70,12 +70,14 @@ program
   .description('Compares two configuration files and shows a difference.')
   .option('-V, --version', 'output the version number')
   .option('-f, --format <type> ','output format')
+  .parse(process.argv)
   .arguments('<filepath1> <filepath2>')
 	.action((filepath1, filepath2) => {
 		// const fileNew = path.resolve(process.cwd(), filepath1);
 		console.log(gendiff(filepath1, filepath2));
+	
 });
-program.parse();
+//program.parse();
 
 export default gendiff;
 
