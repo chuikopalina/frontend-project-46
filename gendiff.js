@@ -12,11 +12,12 @@ import { fileURLToPath } from 'url';
 
 
 const __filename = fileURLToPath(import.meta.url);
+console.log(__filename)
 const __dirname = path.dirname(__filename);
 
 const gendiff = (file1, file2) => {
 	const fileNewObj1 = path.resolve(__dirname, file1);
-	//console.log(__dirname);
+	console.log(fileNewObj1);
 	//console.log(typeof(path.resolve(process.cwd(), file1))); //process.cwd() возвращает текущий рабочий каталог; Метод path.resolve() преобразует последовательность путей или сегментов путей в абсолютный путь
 	const fileArray1 = Object.entries(JSON.parse(fs.readFileSync(fileNewObj1, "utf-8"))); //Object. entries(obj) – возвращает массив пар [ключ, значение]; 
 
@@ -26,7 +27,7 @@ const gendiff = (file1, file2) => {
 	const fileSort1 = _.sortBy(fileArray1, [function(o) { return o[0]}]);
 	const fileSort2 = _.sortBy(fileArray2, [function(o) { return o[0]}]);
 
-	//console.log(fileSort1);
+	console.log(fileSort1);
 	//console.log(fileSort2);
 	const n = fileSort1.length;
 	const m = fileSort2.length;
