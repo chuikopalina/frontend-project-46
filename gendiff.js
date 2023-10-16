@@ -8,9 +8,15 @@ import { cwd } from 'node:process';
 import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const gendiff = (file1, file2) => {
-	const fileNewObj1 = path.resolve(process.cwd(), file1);
+	const fileNewObj1 = path.resolve(cwd(), file1);
+	console.log(__dirname);
 	//console.log(typeof(path.resolve(process.cwd(), file1))); //process.cwd() возвращает текущий рабочий каталог; Метод path.resolve() преобразует последовательность путей или сегментов путей в абсолютный путь
 	const fileArray1 = Object.entries(JSON.parse(fs.readFileSync(fileNewObj1, "utf-8"))); //Object. entries(obj) – возвращает массив пар [ключ, значение]; 
 
