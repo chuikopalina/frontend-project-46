@@ -3,6 +3,7 @@ import gendiff from '../gendiff.js';
 //import file1_1 from '../__fixtures__/test_file1_1.json' assert { type: "json" };
 //import file1_2 from '../__fixtures__/test_file1_2.json' assert { type: "json" };
 import { fileURLToPath } from 'url';
+import path from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
