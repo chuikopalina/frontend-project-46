@@ -14,6 +14,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 console.log(__filename)
 const __dirname = path.dirname(__filename);
+console.log(__dirname)
 
 const gendiff = (file1, file2) => {
 	const fileNewObj1 = path.resolve(__dirname, file1);
@@ -23,11 +24,12 @@ const gendiff = (file1, file2) => {
 
 	const fileNewObj2 = path.resolve(__dirname, file2);
 	const fileArray2 = Object.entries(JSON.parse(fs.readFileSync(fileNewObj2, "utf-8")));
+	console.log(fileNewObj2);
 
 	const fileSort1 = _.sortBy(fileArray1, [function(o) { return o[0]}]);
 	const fileSort2 = _.sortBy(fileArray2, [function(o) { return o[0]}]);
 
-	console.log(fileSort1);
+	//console.log(fileSort1);
 	//console.log(fileSort2);
 	const n = fileSort1.length;
 	const m = fileSort2.length;
@@ -68,7 +70,7 @@ const gendiff = (file1, file2) => {
 		f.push(fileSort1[a]);
 	}
 	//const s = Object.fromEntries(fileSort1);
-	//console.log(f);
+	console.log(f);
 
 
 	return (f.join());
