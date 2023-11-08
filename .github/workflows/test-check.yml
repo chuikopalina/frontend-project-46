@@ -11,6 +11,7 @@ jobs:
       # Ставим зависимости
       - run: npm install
       - run: npm  version
+      - run: make lint
       - name: run tests
         run: npm test # name и run относятся к одной задаче, поэтому дефис ставится только перед name
         
