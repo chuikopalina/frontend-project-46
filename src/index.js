@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import jsYaml from 'js-yaml';
-import { compareFiles } from './parsers.js';
+import compareFiles from './parsers.js';
 
 const selectParser = (pathFile1, pathFile2) => {
   let extFile = '';
