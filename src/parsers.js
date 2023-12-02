@@ -1,49 +1,64 @@
 import _ from 'lodash';
 
-function compareFiles(fileArray1, fileArray2) {
-	console.log(fileArray1);
-	const fileSort1 = _.sortBy(fileArray1, [(o) => o[0]]);
-	const fileSort2 = _.sortBy(fileArray2, [(o) => o[0]]);
+function compareObj(fileArray1, fileArray2) {
+  const objKeysFile1 = Object.keys(fileArray1);
+  const sortKeysFile1 = _.sortBy(objKeysFile1);
+  const objKeysFile2 = Object.keys(fileArray2);
+  const sortKeysFile2 = _.sortBy(objKeysFile2);
 
-	const n = fileSort1.length;
-	const m = fileSort2.length;
+  const n = sortKeysFile1.length;
+  const m = sortKeysFile2.length;
 
-	let i = 0;
-	let j = 0;
-	const f = [];
+  let i = 0;
+  let j = 0;
+  const result = {};
 
-	while (i < n && j < m) {
-		if (fileSort1[i][0].toUpperCase() < fileSort2[j][0].toUpperCase()) {
-			fileSort1[i][0] = `-${fileSort1[i][0]}`;
-			f.push(fileSort1[i]);
-			i += 1;
-		} else if (fileSort1[i][0].toUpperCase() > fileSort2[j][0].toUpperCase()) {
-			f.push(fileSort2[j]);
-			j += 1;
-		} else if (String(fileSort1[i][1]).toUpperCase() !== String(fileSort2[j][1]).toUpperCase()) {
-			fileSort1[i][0] = `-${fileSort1[i][0]}`;
-			fileSort2[j][0] = `+${fileSort2[j][0]}`;
-			f.push(fileSort1[i]);
-			f.push(fileSort2[j]);
-			j += 1;
-			i += 1;
-		} else {
-			f.push(fileSort1[i]);
-			j += 1;
-			i += 1;
-		}
-	}
+  while (i < n && j < m) {
+    const a1 = sortKeysFile1[i];
+    // console.log(a1)
+    const a2 = sortKeysFile2[j];
+    // console.log(a2)
 
-	for (let a = j; a < m; a += 1) {
-		f.push(fileSort2[a]);
-	}
-	for (let a = i; a < m; a += 1) {
-		f.push(fileSort1[a]);
-	}
-	//console.log(f)
-	//const resultJson = JSON.parse(fs.readFileSync(f));
-	//console.log(Object.fromEntries(f));
-	//console.log(JSON.stringify(Object.fromEntries(f), null, ' '));
-	return (f.join());
+    if (a1.toUpperCase() < a2.toUpperCase()) {
+      result[`- ${a1}`] = fileArray1[a1];
+      // console.log(result);
+      i += 1;
+    } else if (a1.toUpperCase() > a2.toUpperCase()) {
+      result[`+ ${a2}`] = fileArray2[a2];
+      // console.log(result)
+      j += 1;
+    } else if (typeof fileArray1[a1] !== 'object' && typeof fileArray2[a2] !== 'object') {
+      if (String(fileArray1[a1]).toUpperCase() !== String(fileArray2[a2]).toUpperCase()) {
+        result[`- ${a1}`] = fileArray1[a1];
+        result[`+ ${a2}`] = fileArray2[a2];
+        j += 1;
+        i += 1;
+      } else {
+        result[`  ${a1}`] = fileArray1[a1];
+        j += 1;
+        i += 1;
+      }
+    } else if (typeof fileArray1[a1] === 'object' && typeof fileArray2[a2] === 'object') {
+      result[`  ${a1}`] = compareObj(fileArray1[a1], fileArray2[a2]);
+      // f.push(`}`);
+      j += 1;
+      i += 1;
+    } else {
+      result[`- ${a1}`] = fileArray1[a1];
+      result[`+ ${a2}`] = fileArray2[a2];
+      j += 1;
+      i += 1;
+    }
+  }
+
+  for (let a = j; a < m; a += 1) {
+    const a2 = sortKeysFile2[a];
+    result[`+ ${a2}`] = fileArray2[a2];
+  }
+  for (let a = i; a < n; a += 1) {
+    const a1 = sortKeysFile1[a];
+    result[`  ${a1}`] = fileArray1[a1];
+  }
+  return result;
 }
-export default compareFiles;
+export default (compareObj);

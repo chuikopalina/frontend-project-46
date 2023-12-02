@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
-import compareFiles from './parsers.js';
+import compareObj from './parsers.js';
 
 const selectParser = (pathFile1, pathFile2) => {
   let extFile = '';
@@ -21,23 +21,47 @@ const selectParser = (pathFile1, pathFile2) => {
 
   switch (extFile) {
     case ('yaml'):
-		//console.log(file1);
+      // console.log(file1);
       return ([Object.entries(yaml.load((file1))), Object.entries(yaml.load(file2))]);
     // case ('ini'):
       // return [iniParser.parse(file1), iniParser.parse(file2)];
     default:
-	  console.log(JSON.parse(file1));
-      return [Object.entries(JSON.parse(file1)), Object.entries(JSON.parse(file2))];
+      return [(JSON.parse(file1)), (JSON.parse(file2))];
   }
 };
-
-const getdiff = (file1, file2) => {
-  const [obj1, obj2] = selectParser(file1, file2);
-  //console.log([obj1, obj2]);
-
-  const result = compareFiles(obj1, obj2);
-
+const stylish = (obj, depth = 0, symbol = ' ') => {
+  const repeatCount = 4;
+  const shiftLeft = 2;
+  let result = '';
+  if (obj !== null) {
+    const objKeys = Object.keys(obj);
+    if (objKeys.length === 0) {
+      result = '';
+    } else {
+      result = `${result}{\n`;
+      for (const key in obj) {
+        let shift = 0;
+        if (['+', '-', ' '].includes(key[0])) {
+          shift = shiftLeft;
+        }
+        if (typeof obj[key] !== 'object') {
+          result = `${result + symbol.repeat(repeatCount * (depth + 1) - shift)}${key}: ` + `${obj[key]}` + '\n';
+        } else {
+          result = `${result + symbol.repeat(repeatCount * (depth + 1) - shift)}${key}: ${stylish(obj[key], depth + 1, symbol)}\n`;
+        }
+      }
+    }
+    result = `${result + symbol.repeat(repeatCount * depth)}}`;
+  } else {
+    result = 'null';
+  }
   return result;
 };
 
-export default getdiff;
+const genDiff = (file1, file2) => {
+  const [obj1, obj2] = selectParser(file1, file2);
+  const resultDiff = compareObj(obj1, obj2);
+  const resultFormated = stylish(resultDiff);
+  return resultFormated;
+};
+export default genDiff;
