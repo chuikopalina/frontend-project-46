@@ -8,17 +8,17 @@ const stylish = (obj, depth = 0, symbol = ' ') => {
       result = '';
     } else {
       result = `${result}{\n`;
-      for (const key in obj) {
+      objKeys.forEach((key) => {
         let shift = 0;
         if (['+', '-', ' '].includes(key[0])) {
           shift = shiftLeft;
         }
         if (typeof obj[key] !== 'object') {
-          result = `${result + symbol.repeat(repeatCount * (depth + 1) - shift)}${key}: ` + `${obj[key]}` + '\n';
+          result = `${result + symbol.repeat(repeatCount * (depth + 1) - shift)}${key}: ${obj[key]}\n`;
         } else {
           result = `${result + symbol.repeat(repeatCount * (depth + 1) - shift)}${key}: ${stylish(obj[key], depth + 1, symbol)}\n`;
         }
-      }
+      });
     }
     result = `${result + symbol.repeat(repeatCount * depth)}}`;
   } else {

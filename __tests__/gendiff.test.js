@@ -1,32 +1,63 @@
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import fs from 'fs';
-import genDiff from '../src/index.js';
+import genDiff from '../formatters/index.js';
+import stylish from '../formatters/stylish.js';
+import plain from '../formatters/plain.js';
+import json from '../formatters/json.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const getResult = (pathResult = '__fixtures__/expect.txt') => {
-  // console.log(JSON.parse(fs.readFileSync(path.resolve(__dirname, pathResult))))
-  // return fs.readFileSync(path.join(__dirname, pathResult));
   const pathToFileResult = path.resolve(__dirname, pathResult);
-  console.log(pathToFileResult);
   const resultJson = fs.readFileSync(pathToFileResult, 'utf8');
-  console.log(resultJson);
   return resultJson;
 };
 
-test('for jsons files', () => {
+test('input json, output stylish', () => {
   const file1 = path.join(__dirname, '__fixtures__/file_before.json');
-  console.log(file1);
   const file2 = path.join(__dirname, '__fixtures__/file_after.json');
-  const result = getResult();
-  const diff = genDiff(file1, file2);
-  console.log(diff);
+  const result = getResult('__fixtures__/expect_stylish.txt');
+  const diff = genDiff(file1, file2, stylish);
   expect(diff).toEqual(result);
 });
 
-// test('test for ymls files', () => {
-// 	const file1 = path.join(__dirname, '__fixtures__/file_before.yml');
-// 	const file2 = path.join(__dirname, '__fixtures__/file_after.yml');
-// 	expect(genDiff(file1, file2)).toBe();
-//   });
+test('input json, output plain', () => {
+  const file1 = path.join(__dirname, '__fixtures__/file_before.json');
+  const file2 = path.join(__dirname, '__fixtures__/file_after.json');
+  const result = getResult('__fixtures__/expect_plain.txt');
+  const diff = genDiff(file1, file2, plain);
+  expect(diff).toEqual(result);
+});
+
+test('input json, output json', () => {
+  const file1 = path.join(__dirname, '__fixtures__/file_before.json');
+  const file2 = path.join(__dirname, '__fixtures__/file_after.json');
+  const result = getResult('__fixtures__/expect_json.json');
+  const diff = genDiff(file1, file2, json);
+  expect(diff).toEqual(result);
+});
+
+test('input yaml, output stylish', () => {
+  const file1 = path.join(__dirname, '__fixtures__/file_before.yml');
+  const file2 = path.join(__dirname, '__fixtures__/file_after.yml');
+  const result = getResult('__fixtures__/expect_stylish.txt');
+  const diff = genDiff(file1, file2, stylish);
+  expect(diff).toEqual(result);
+});
+
+test('input yaml, output plain', () => {
+  const file1 = path.join(__dirname, '__fixtures__/file_before.yml');
+  const file2 = path.join(__dirname, '__fixtures__/file_after.yml');
+  const result = getResult('__fixtures__/expect_plain.txt');
+  const diff = genDiff(file1, file2, plain);
+  expect(diff).toEqual(result);
+});
+
+test('input yaml, output json', () => {
+  const file1 = path.join(__dirname, '__fixtures__/file_before.yml');
+  const file2 = path.join(__dirname, '__fixtures__/file_after.yml');
+  const result = getResult('__fixtures__/output_json.json');
+  const diff = genDiff(file1, file2, json);
+  expect(diff).toEqual(result);
+});

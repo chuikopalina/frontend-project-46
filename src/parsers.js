@@ -15,17 +15,12 @@ function compareObj(fileArray1, fileArray2) {
 
   while (i < n && j < m) {
     const a1 = sortKeysFile1[i];
-    // console.log(a1)
     const a2 = sortKeysFile2[j];
-    // console.log(a2)
-
     if (a1.toUpperCase() < a2.toUpperCase()) {
       result[`- ${a1}`] = fileArray1[a1];
-      // console.log(result);
       i += 1;
     } else if (a1.toUpperCase() > a2.toUpperCase()) {
       result[`+ ${a2}`] = fileArray2[a2];
-      // console.log(result)
       j += 1;
     } else if (typeof fileArray1[a1] !== 'object' && typeof fileArray2[a2] !== 'object') {
       if (String(fileArray1[a1]).toUpperCase() !== String(fileArray2[a2]).toUpperCase()) {
@@ -40,7 +35,6 @@ function compareObj(fileArray1, fileArray2) {
       }
     } else if (typeof fileArray1[a1] === 'object' && typeof fileArray2[a2] === 'object') {
       result[`  ${a1}`] = compareObj(fileArray1[a1], fileArray2[a2]);
-      // f.push(`}`);
       j += 1;
       i += 1;
     } else {
@@ -50,14 +44,13 @@ function compareObj(fileArray1, fileArray2) {
       i += 1;
     }
   }
-
   for (let a = j; a < m; a += 1) {
     const a2 = sortKeysFile2[a];
     result[`+ ${a2}`] = fileArray2[a2];
   }
   for (let a = i; a < n; a += 1) {
     const a1 = sortKeysFile1[a];
-    result[`  ${a1}`] = fileArray1[a1];
+    result[`- ${a1}`] = fileArray1[a1];
   }
   return result;
 }
