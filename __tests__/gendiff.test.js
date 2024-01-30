@@ -8,7 +8,7 @@ import json from '../formatters/json.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const getResult = (pathResult = '__fixtures__/expect.txt') => {
+const getResult = (pathResult = '__fixtures__/expect_stylish.txt') => {
   const pathToFileResult = path.resolve(__dirname, pathResult);
   const resultJson = fs.readFileSync(pathToFileResult, 'utf8');
   return resultJson;
@@ -57,7 +57,7 @@ test('input yaml, output plain', () => {
 test('input yaml, output json', () => {
   const file1 = path.join(__dirname, '__fixtures__/file_before.yml');
   const file2 = path.join(__dirname, '__fixtures__/file_after.yml');
-  const result = getResult('__fixtures__/output_json.json');
+  const result = getResult('__fixtures__/expect_json.json');
   const diff = genDiff(file1, file2, json);
   expect(diff).toEqual(result);
 });
